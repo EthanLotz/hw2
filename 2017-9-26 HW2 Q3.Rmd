@@ -1,0 +1,31 @@
+---
+title: "2017-9-26 HW2 Q3"
+author: "Ethan M. Lotz"
+date: "September 26, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Question 3
+Write a function is R to solve the following problem: One dollar invested at an annual rate
+of r percent compounded monthly for m months is worth
+
+$$(1+\frac{r}{1200})^{m}$$
+
+```{r}
+dollar.invest <- function(p,y) ((1+(p/1200))**(y*12))
+```
+
+How much will one dollar be worth at the end of 6 years at 6% interest? 
+```{r}
+dollar.invest(6,6)
+```
+
+What about at 17%?
+```{r}
+dollar.invest(17,6)
+```
+

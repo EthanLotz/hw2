@@ -1,0 +1,61 @@
+---
+title: "HW2_Q2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(UsingR)
+library(DT)
+library(reshape)
+library(ggplot2)
+```
+
+##Question 2
+
+```{r}
+data(crime)
+```
+
+Check the dimensions
+```{r}
+dim(crime)
+```
+
+Check classes of variables in rows and columns
+```{r}
+class(crime)
+lapply(crime, class)
+```
+
+Check summary statistics for rows/columns
+```{r}
+summary(crime)
+```
+
+Display rows/columns as a table sortable by min/max value. In descending order by default.
+```{r}
+datatable(crime)
+```
+
+Visualized boxplots of rows/columns, where appropriate. Plot data on different scales on separate boxplots
+```{r}
+meltcrime <- melt(crime)
+boxplot(data=meltcrime, value~variable)
+p <- ggplot(meltcrime, aes(factor(variable), value)) 
+p + geom_boxplot() + facet_wrap(~variable, scale="free")
+```
+
+Visualize data using histograms and/or density plots, if relevant
+```{r}
+hist(crime[,1], main=paste("Histogram of Crime in 1983"), xlab=paste("1983 Crime Rate"))
+hist(crime[,2], main=paste("Histogram of Crime in 1993"), xlab=paste("1993 Crime Rate"))
+```
+
+Make any other dataset-specific plots, e.g., plotting one variable vs. the other, performing linear regression on it
+```{r}
+t.test(crime[,1],crime[,2],paired=TRUE)
+```
+
+Discussion:
+The data set "crime" contains the violent crime rates for the 50 states in the year 1983 and a decade later in 1993. The summary statistics for the data set show the median crime rate in 1983 was 397.9 (IQR 245.4-553.0) and 535.5 (IQR 328.8-758.1). A paired t-test shows that country wide violent crime rate significantly increased between 1983 and 1993 (t=-7.68, p-value < 0.0001). It would be interesting to see how this data set compares with crime rates from both 2003 and 2013.

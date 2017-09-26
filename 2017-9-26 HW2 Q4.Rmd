@@ -1,0 +1,25 @@
+---
+title: "2017-9-26 HW2 Q3"
+author: "Ethan M. Lotz"
+date: "September 26, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 4
+A monthly loan payment is computed from the principle of the loan, p, the number of years
+of payments y, and the interest rate in percent i, according to the formula
+
+$$payment = p*\frac{\frac{i}{1200}*(1+\frac{i}{1200})^{12*y}}{(1+\frac{i}{1200})^{12*y}-1}$$
+```{r}
+monthly.payment <- function(p,y,i) p*(((i/1200)*(1+(i/1200))^(12*y))/(((1+i/1200)^(12*y))-1))
+```
+
+What would the monthly payment be for a $150,000 mortgage at 6.5% for 30 years?
+```{r}
+monthly.payment(150000,30,6.5)
+```
+

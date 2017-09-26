@@ -1,0 +1,79 @@
+---
+title: "HW2_Question1"
+author: "Ethan M. Lotz"
+date: "September 26, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+##Question 1
+
+**In R, do the following:**
+
+a.) Load the built-in dataset state.x77 into R's memory
+```{r}
+data(state)
+head(state.x77)
+```
+
+b.) List the objects in your R session. Get help for the state object.
+```{r}
+ls.str()
+```
+
+c.) What type of object is state.x77?
+```{r}
+class(state.x77)
+```
+
+d.) Create a new object called new.state that is a data.frame based on the data stored in state.x77.
+```{r}
+new.state <- data.frame(state.x77)
+```
+
+e.) Attach the new.state object into the search path.
+```{r}
+attach(new.state)
+```
+
+f.) Compute the mean of the Illiteracy vector from the new.state object, and its residuals from the mean
+value.
+```{r}
+mean(new.state$Illiteracy)
+sd(new.state$Illiteracy)
+```
+
+g.) Print the elements of Illiteracy that are greater than the median illiteracy. Print the elements of
+Murder that are greater than its median.
+```{r}
+new.state$Illiteracy[new.state$Illiteracy > median(new.state$Illiteracy)]
+new.state$Murder[new.state$Murder > median(new.state$Murder)]
+```
+
+h.) Plot Illiteracy on the x-axis and Murder on the y-axis. From interacting with the graph, what 3 states
+have the highest murder rates?
+```{r}
+plot(new.state$Illiteracy, new.state$Murder, xlab="State Illiteracy", ylab="Murder Rate")
+```
+
+i.) The plot function has an optional argument, type, that controls what type of plot is made (points,
+lines, etc). In particular, type = ’n’ plots nothing, but sets up and draws axes and axis labels. Use this
+to generate a scatterplot of Illiteracy and Murder, but with the state abbreviations labeling the points,
+instead of the default plotting character.
+```{r}
+ggplot(new.state, aes(x=new.state$Illiteracy, y=new.state$Murder)) + geom_text(aes(label=state.abb),size=3)
+```
+
+j.) Write a function is.min that returns a logical vector identifying the minimum values. Write another
+function (call it mins) that calls is.min and returns the numerical indices of the minimum values. Apply
+mins to the Illiteracy vector.
+```{r}
+is.min <- function(a) a==min(a)
+mins <- function(a) which(is.min(a))
+mins(new.state$Illiteracy)
+```
+
